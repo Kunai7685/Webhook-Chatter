@@ -1,6 +1,7 @@
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
+url = [[1059780753392668672/L0K7Sz93Jt_SE6ZL3B1exfmLK5-iygpqJzZUbRwUm7GyWrBzdaKQaU8mBRmN7fYPcN7V]]
 local cat_profile_generator = "https://api.thecatapi.com/v1/images/search?ref=morioh.com&utm_source=morioh.com"
 local random_profile_tables = "https://raw.githubusercontent.com/Kunai7685/Webhook-Chatter/main/Profiles.json"
 
