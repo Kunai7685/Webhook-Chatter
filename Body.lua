@@ -1,7 +1,6 @@
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
-local webhook_url = "https://discord.com/api/webhooks/1059488494688415764/K1I9eJ_459Fr-xx36LWCgw3YQvRN4ulUi9KOApilTUyrtO1xAWs9I65b4eQZfXKrmQHM"
 local cat_profile_generator = "https://api.thecatapi.com/v1/images/search?ref=morioh.com&utm_source=morioh.com"
 local random_profile_tables = "https://raw.githubusercontent.com/Kunai7685/Webhook-Chatter/main/Profiles.json"
 
@@ -27,7 +26,7 @@ function sendMessage()
 		}
 
 		local request_body_encoded = HttpService:JSONEncode(payload)
-		local request_payload = {Url=webhook_url, Body=request_body_encoded, Method="POST", Headers=headers}
+		local request_payload = {Url="https://discord.com/api/webhooks/"..url, Body=request_body_encoded, Method="POST", Headers=headers}
 		http_request(request_payload)
 		table.remove(MessageRequested, 1)
 	end
