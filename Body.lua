@@ -5,11 +5,6 @@ url = [[1061549745291677776/8LrZSU-b3n-v96jpvebzS_4p0MU4WAkyjjCpSvnMKxkY3cCJ164g
 local cat_profile_generator = "https://api.thecatapi.com/v1/images/search?ref=morioh.com&utm_source=morioh.com"
 local random_profile_tables = "https://raw.githubusercontent.com/Kunai7685/Webhook-Chatter/main/Profiles.json"
 
-local Takes = 0
-local RestTakes = 10
-local RestTime = RestTakes*2
-local TakingaRest = false
-
 local ProfileList
 do
 	local Result = HttpService:JSONDecode(game:HttpGet(random_profile_tables))
@@ -19,34 +14,22 @@ end
 local MessageRequested = {}
 
 function sendMessage()
-	if TakingaRest == false then
-		if MessageRequested[1] then
-			Takes += 1
-			if Takes > RestTakes then
-				TakingaRest = true
-				coroutine.resume(coroutine.create(function()
-					wait(RestTime)
-					Takes = 0
-					TakingaRest = false
-				end))
-				return
-			end
-			local msg, player, profileNum = MessageRequested[1].msg,MessageRequested[1].plr,MessageRequested[1].pfp
-			local payload = {
-				["username"] = player.Name.." (@"..player.DisplayName..")";
-				["avatar_url"] = ProfileList[profileNum];
-				["content"] = msg;
-			}
+	if MessageRequested[1] then
+		local msg, player, profileNum = MessageRequested[1].msg,MessageRequested[1].plr,MessageRequested[1].pfp
+		local payload = {
+			["username"] = player.Name.." (@"..player.DisplayName..")";
+			["avatar_url"] = ProfileList[profileNum];
+			["content"] = msg;
+		}
 
-			local headers = {
-				["content-type"] = "application/json"
-			}
+		local headers = {
+			["content-type"] = "application/json"
+		}
 
-			local request_body_encoded = HttpService:JSONEncode(payload)
-			local request_payload = {Url="https://discord.com/api/webhooks/"..url, Body=request_body_encoded, Method="POST", Headers=headers}
-			http_request(request_payload)
-			table.remove(MessageRequested, 1)
-		end
+		local request_body_encoded = HttpService:JSONEncode(payload)
+		local request_payload = {Url="https://discord.com/api/webhooks/"..url, Body=request_body_encoded, Method="POST", Headers=headers}
+		http_request(request_payload)
+		table.remove(MessageRequested, 1)
 	end
 end
 
